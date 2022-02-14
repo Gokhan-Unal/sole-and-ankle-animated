@@ -36,22 +36,16 @@ const ShoeCard = ({
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
-          {variant === 'on-sale' && <SaleFlag>Sale</SaleFlag>}
-          {variant === 'new-release' && (
-            <NewFlag>Just released!</NewFlag>
-          )}
         </ImageWrapper>
+        {variant === 'on-sale' && <SaleFlag>Sale</SaleFlag>}
+        {variant === 'new-release' && <NewFlag>Just released!</NewFlag>}
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
           <Price
             style={{
-              '--color':
-                variant === 'on-sale'
-                  ? 'var(--color-gray-700)'
-                  : undefined,
-              '--text-decoration':
-                variant === 'on-sale' ? 'line-through' : undefined,
+              '--color': variant === 'on-sale' ? 'var(--color-gray-700)' : undefined,
+              '--text-decoration': variant === 'on-sale' ? 'line-through' : undefined,
             }}
           >
             {formatPrice(price)}
@@ -68,20 +62,37 @@ const ShoeCard = ({
   );
 };
 
+const Wrapper = styled.article`
+  position: relative;
+`;
+
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
-
 const ImageWrapper = styled.div`
-  position: relative;
+  overflow: hidden;
+  border-radius: 16px 16px 4px 4px;
 `;
 
 const Image = styled.img`
+  display: block;
   width: 100%;
   border-radius: 16px 16px 4px 4px;
+  transition: transform 600ms, filter 600ms;
+  transform-origin: 50% 75%;
+  will-change: transform; /* gpu acceleration */
+  transition: transform 0.2s ease-in-out;
+  filter: brightness(90%);
+
+  /* & means current component -> image -> e.g .link:hover .image */
+  ${Link}:hover &, ${Link}:focus & {
+    transform: scale(1.05);
+    /* Action Driven Animation */
+    transition: transform 200ms, filter 200ms;
+    filter: brightness(100%);
+  }
 `;
 
 const Row = styled.div`
