@@ -7,6 +7,7 @@ import Icon from '../Icon';
 import UnstyledButton from '../UnstyledButton';
 import SuperHeader from '../SuperHeader';
 import MobileMenu from '../MobileMenu';
+import NavLink from '../NavLink';
 import VisuallyHidden from '../VisuallyHidden';
 
 const Header = () => {
@@ -44,10 +45,7 @@ const Header = () => {
         <Filler />
       </MainHeader>
 
-      <MobileMenu
-        isOpen={showMobileMenu}
-        onDismiss={() => setShowMobileMenu(false)}
-      />
+      <MobileMenu isOpen={showMobileMenu} onDismiss={() => setShowMobileMenu(false)} />
     </header>
   );
 };
@@ -111,18 +109,6 @@ const Filler = styled.div`
 
   @media ${QUERIES.tabletAndSmaller} {
     display: none;
-  }
-`;
-
-const NavLink = styled.a`
-  font-size: 1.125rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-gray-900);
-  font-weight: ${WEIGHTS.medium};
-
-  &:first-of-type {
-    color: var(--color-secondary);
   }
 `;
 
